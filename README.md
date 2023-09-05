@@ -6,13 +6,6 @@ The extension for [Telegram Bot API PHP SDK](https://github.com/irazasyed/telegr
 implement processing callback data for telegram bots.
 
 
-## About this fork
-
-Original package is not maintained anymore and does not support Telegram Bot API PHP SDK v3.
-The goal of the fork is to maintain the package compatible with the latest [Telegram Bot API PHP SDK](https://github.com/irazasyed/telegram-bot-sdk),
-PHP 8+ and Laravel features, focus on stability, better DX and readability.
-
-
 ## Installation
 
 You can easily install the package using Composer:
