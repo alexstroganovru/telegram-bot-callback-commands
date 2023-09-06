@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace AlexStroganovRu\TelegramBotCallbackData\Tests;
+declare(strict_types=1);
+
+namespace AlexStroganovRu\TelegramBotCallbackCommands\Tests;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {

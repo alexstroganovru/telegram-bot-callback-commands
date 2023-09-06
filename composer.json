@@ -1,49 +1,50 @@
 {
-    "name": "alexstroganovru/telegram-bot-callback-data",
-    "description": "Telegram Bot API PHP SDK extension that allows to implement processing callback data in bots",
-    "license": "MIT",
-    "type": "library",
-    "keywords": [
-        "telegram-callback-data",
-        "telegram-callback",
-        "telegram",
-        "laravel"
-    ],
-    "homepage": "https://github.com/alexstroganovru/telegram-bot-callback-data",
-    "require": {
-        "php": ">=8.0",
-        "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
-        "irazasyed/telegram-bot-sdk": "^3.1"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5 || ^10.0"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "autoload": {
-        "psr-4": {
-            "AlexStroganovRu\\TelegramBotCallbackData\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "AlexStroganovRu\\TelegramBotCallbackData\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "ergebnis/composer-normalize": false
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "CallbackDataServiceProvider"
-            ]
-        }
-    },
-    "scripts": {
-        "test": "phpunit"
+  "name": "alexstroganovru/telegram-bot-callback-commands",
+  "description": "Telegram Bot API PHP SDK extension that allows to implement processing callback data in bots",
+  "license": "MIT",
+  "type": "library",
+  "keywords": [
+    "telegram-callback-command",
+    "telegram-callback-data",
+    "telegram-callback",
+    "telegram",
+    "laravel"
+  ],
+  "homepage": "https://github.com/alexstroganovru/telegram-bot-callback-commands",
+  "require": {
+    "php": ">=8.0",
+    "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+    "irazasyed/telegram-bot-sdk": "^3.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5 || ^10.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "AlexStroganovRu\\TelegramBotCallbackCommands\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AlexStroganovRu\\TelegramBotCallbackCommands\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "ergebnis/composer-normalize": false
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "CallbackCommandsServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
 }
