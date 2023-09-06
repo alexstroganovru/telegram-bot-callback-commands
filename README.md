@@ -69,7 +69,7 @@ final class TelegramWebhookController
         $bot = $botsManager->bot('your-bot-name');
         $update = $bot->commandsHandler(true);
         
-        $callbackManager->setTelegram($bot)
+        $callbackManager->setBot($bot)
             ->callbackCommandsHandler($update);
     }
 }
@@ -84,7 +84,7 @@ final class TelegramWebhookController
 ℹ️ `CallbackCommands` [Facade](https://laravel.com/docs/master/facades) proxies calls to `CallbackCommandsManager`
 class.
 
-- `setTelegram(\Telegram\Bot\Api $bot)` - Use non-default Bot for API calls
+- `setBot(\Telegram\Bot\Api $bot)` - Use non-default Bot for API calls
 - `setCallbackCommands(array $commands)` - Change commands list ащк Bot
 - `callbackCommandsHandler(Telegram\Bot\Objects\Update $update)` - Callback command handler
 
