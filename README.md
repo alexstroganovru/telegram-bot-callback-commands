@@ -18,7 +18,7 @@ Package requires PHP >= 8.0
 ## Usage
 
 1. Create a Callback Command class
-2. Add ```'callback_commands' => []``` in telegram.php
+2. Add config ```'callback_commands' => []``` in telegram.php
 3. Setup your controller class to proceed CallbackCommands on income webhook request.
 
 ### 1. Create a Callback Command class
@@ -32,19 +32,16 @@ use AlexStroganovRu\TelegramBotCallbackCommands\CallbackCommand;
 
 final class HelloCallbackCommand extends CallbackCommand
 {
-    protected string $pattern = '';
+    protected string $name = 'hello';
 
     public function handle(): void
     {
-        $this->getTelegram()->sendMessage([
-            'chat_id' => $this->getChatId(),
-            'text' => 'Hello! How are you?',
-        ]);
+        $this->replyWithMessage(['text' => 'Hello! How are you?']);
     }
 }
 ```
 
-### 2. Add ```'callback_commands' => []``` in telegram.php
+### 2. Add config ```'callback_commands' => []``` in telegram.php
 
 ```php
 use AlexStroganovRu\TelegramBotCallbackCommands\Commands\HelloExampleCallbackCommand;
