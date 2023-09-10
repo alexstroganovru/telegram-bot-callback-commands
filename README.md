@@ -91,7 +91,6 @@ class.
 ## ToDo
 
 - Improve documentation and examples
-- Improve test coverage
 
 ## Backward compatibility promise
 

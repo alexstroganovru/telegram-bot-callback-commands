@@ -3,4 +3,6 @@ vendor
 composer.lock
 
 # phpunit
+phpunit.*
 .phpunit.cache
+tests/reports

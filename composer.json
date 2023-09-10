@@ -17,6 +17,8 @@
     "irazasyed/telegram-bot-sdk": "^3.1"
   },
   "require-dev": {
+    "pestphp/pest": "^2.17",
+    "pestphp/pest-plugin-faker": "^2.0",
     "phpunit/phpunit": "^9.5 || ^10.0"
   },
   "minimum-stability": "dev",
@@ -34,7 +36,8 @@
   "config": {
     "sort-packages": true,
     "allow-plugins": {
-      "ergebnis/composer-normalize": false
+      "ergebnis/composer-normalize": false,
+      "pestphp/pest-plugin": true
     }
   },
   "extra": {
@@ -45,6 +48,6 @@
     }
   },
   "scripts": {
-    "test": "phpunit"
+    "test": "./vendor/bin/pest"
   }
 }

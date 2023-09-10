@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         cacheResultFile=".phpunit.cache/test-results"
-         executionOrder="depends,defects"
-         forceCoversAnnotation="true"
-         beStrictAboutCoversAnnotation="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         convertDeprecationsToExceptions="true"
-         failOnRisky="true"
-         failOnWarning="true"
-         verbose="true">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        executionOrder="depends,defects"
+        beStrictAboutOutputDuringTests="true"
+        failOnRisky="true"
+        failOnWarning="true"
+        cacheDirectory=".phpunit.cache"
+        requireCoverageMetadata="false"
+        beStrictAboutCoverageMetadata="false"
+>
     <testsuites>
-        <testsuite name="default">
-            <directory>tests</directory>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
-
-    <coverage cacheDirectory=".phpunit.cache/code-coverage"
-              processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
+    <coverage>
+        <report>
+            <html outputDirectory="tests/reports/coverage"/>
+        </report>
     </coverage>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">./src/Commands</directory>
+            <directory suffix=".php">./src/Exceptions</directory>
+            <directory suffix=".php">./src/Laravel</directory>
+            <directory suffix="Interface.php">./src/</directory>
+        </exclude>
+    </source>
 </phpunit>
