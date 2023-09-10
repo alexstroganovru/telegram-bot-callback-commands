@@ -114,7 +114,23 @@ class CallbackCommandBus extends AnswerBus
             throw new InvalidArgumentException('Data is empty, Cannot parse for command');
         }
 
-        return $data;
+        $command = array_filter($this->commands, static fn (CallbackCommand $command) => $command->getName() === $data);
+        if (count($command) > 0) {
+            return $data;
+        }
+
+        $commands = array_filter($this->commands, static function (CallbackCommand $command) use ($data) {
+            $result = $command->parseArguments($data);
+            return ! empty($result[0]) ? $command : false;
+        });
+
+        $command = reset($commands);
+
+        if ($command === false) {
+            throw new InvalidArgumentException('Callback command not found');
+        }
+
+        return $command->getName();
     }
 
     /**

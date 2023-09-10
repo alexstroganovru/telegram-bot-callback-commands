@@ -2,6 +2,7 @@
 
 namespace AlexStroganovRu\TelegramBotCallbackCommands\Traits;
 
+use AlexStroganovRu\TelegramBotCallbackCommands\CallbackCommand;
 use AlexStroganovRu\TelegramBotCallbackCommands\CallbackCommandBus;
 use Telegram\Bot\Objects\Update;
 
@@ -33,9 +34,20 @@ trait CallbackCommandsHandler
         return $this->callbackCommandBus->getCommands();
     }
 
-    public function setCallbackCommands(array $commands): self
+    public function setCallbackCommands(array|CallbackCommand $commands): self
     {
+        if ($commands instanceof CallbackCommand) {
+            $commands = [$commands];
+        }
+
         $this->callbackCommandBus->addCommands($commands);
+
+        return $this;
+    }
+
+    public function addCallbackCommand(CallbackCommand $command): self
+    {
+        $this->callbackCommandBus->addCommand($command);
 
         return $this;
     }

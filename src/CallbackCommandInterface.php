@@ -16,5 +16,7 @@ interface CallbackCommandInterface
 
     public function getArguments(): array;
 
-    public function make(Api $telegram, Update $update);
+    public function parseArguments(string $command): array;
+
+    public function make(Api $telegram, Update $update): void;
 }

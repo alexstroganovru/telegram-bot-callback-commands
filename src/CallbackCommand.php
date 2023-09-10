@@ -90,15 +90,23 @@ abstract class CallbackCommand implements CallbackCommandInterface
     }
 
     /**
+     * Parse Command Arguments.
+     */
+    public function parseArguments(string $command): array
+    {
+        return $this->compareStrings($this->getName(), $command);
+    }
+
+    /**
      * Process Inbound Command.
      */
-    public function make(Api $telegram, Update $update): mixed
+    public function make(Api $telegram, Update $update): void
     {
         $this->telegram = $telegram;
         $this->update = $update;
         $this->arguments = $this->parseCommandArguments();
 
-        return $this->handle();
+        $this->handle();
     }
 
     /**
@@ -106,15 +114,46 @@ abstract class CallbackCommand implements CallbackCommandInterface
      */
     protected function parseCommandArguments(): array
     {
-        $arguments = [];
+        if (empty($this->update->callbackQuery->data)) {
+            return [];
+        }
 
-        $this->update->callbackQuery->data;
+        $result = $this->parseArguments(command: $this->update->callbackQuery->data);
 
-        return $arguments;
+        if (! empty($result[0])) {
+            return array_combine($result[0], $result[1]);
+        }
+
+        return [];
     }
 
     /**
      * {@inheritdoc}
      */
-    abstract public function handle();
+    abstract public function handle(): void;
+
+
+    private function compareStrings(string $pattern, string $value): array
+    {
+        preg_match_all('/\{([a-zA-Z0-9]+)\}/', $pattern, $matches);
+
+        $regex_pattern = preg_quote($pattern, '/');
+        foreach ($matches[1] as $match) {
+            $regex_pattern = str_replace(preg_quote('{'.$match.'}'), '([a-zA-Z0-9_]+)', $regex_pattern);
+        }
+
+        preg_match_all('/^'.$regex_pattern.'$/', $value, $values);
+
+        if (! empty($values) && ! empty($values[0])) {
+            array_shift($values);
+            return [
+                $matches[1],
+                array_map(static function ($value) {
+                    return reset($value);
+                }, $values),
+            ];
+        }
+
+        return [[], []];
+    }
 }
