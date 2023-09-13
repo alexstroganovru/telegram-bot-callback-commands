@@ -16,15 +16,19 @@ abstract class CallbackCommand implements CallbackCommandInterface
     use Answerable;
 
     /**
-     * The name of the Telegram command.
+     * @var string The name of the callback command.
      */
     protected string $name;
 
-    /** @var string The Telegram command description. */
+    /** @var string The callback command description. */
     protected string $description;
 
     /** @var array Holds parsed command arguments */
     protected array $arguments = [];
+
+
+    /** @var string The text will be displayed to the user as a notification at the top of the chat screen or as an alert. */
+    protected string $callbackText = '';
 
     /**
      * Get the Command Name.
@@ -107,6 +111,11 @@ abstract class CallbackCommand implements CallbackCommandInterface
         $this->arguments = $this->parseCommandArguments();
 
         $this->handle();
+
+        $telegram->answerCallbackQuery([
+            'callback_query_id' => $this->getUpdate()->callbackQuery->id,
+            'text' => $this->callbackText,
+        ]);
     }
 
     /**
@@ -114,11 +123,11 @@ abstract class CallbackCommand implements CallbackCommandInterface
      */
     protected function parseCommandArguments(): array
     {
-        if (empty($this->update->callbackQuery->data)) {
+        if (empty($this->getUpdate()->callbackQuery->data)) {
             return [];
         }
 
-        $result = $this->parseArguments(command: $this->update->callbackQuery->data);
+        $result = $this->parseArguments(command: $this->getUpdate()->callbackQuery->data);
 
         if (! empty($result[0])) {
             return array_combine($result[0], $result[1]);
