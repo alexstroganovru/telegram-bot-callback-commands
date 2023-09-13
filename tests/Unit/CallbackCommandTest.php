@@ -4,7 +4,10 @@ use AlexStroganovRu\TelegramBotCallbackCommands\CallbackCommandsManager;
 use Telegram\Bot\Api;
 
 beforeEach(function () {
-    $this->callbackCommandManager = new CallbackCommandsManager(new Api(token: 'test-token'));
+    $client = Mockery::mock(Api::class);
+    $client->shouldReceive('answerCallbackQuery');
+
+    $this->callbackCommandManager = new CallbackCommandsManager($client);
 });
 
 dataset('error_patterns', [
