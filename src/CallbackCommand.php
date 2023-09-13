@@ -51,6 +51,24 @@ abstract class CallbackCommand implements CallbackCommandInterface
     }
 
     /**
+     * Get Command Callback Text.
+     */
+    public function getCallbackText(): string
+    {
+        return $this->callbackText;
+    }
+
+    /**
+     * Set Command Callback Text.
+     */
+    public function setCallbackText(string $text): self
+    {
+        $this->callbackText = $text;
+
+        return $this;
+    }
+
+    /**
      * Get Command Description.
      *
      * The Telegram command description.
@@ -114,7 +132,7 @@ abstract class CallbackCommand implements CallbackCommandInterface
 
         $telegram->answerCallbackQuery([
             'callback_query_id' => $this->getUpdate()->callbackQuery->id,
-            'text' => $this->callbackText,
+            'text' => $this->getCallbackText(),
         ]);
     }
 
