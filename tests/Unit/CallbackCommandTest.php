@@ -16,6 +16,9 @@ dataset('error_patterns', [
 ]);
 
 dataset('patterns', [
+    ['first:{two}', 'first:aQaE', [['two'], ['aQaE']]],
+    ['{two}:first', 'aQaE:first', [['two'], ['aQaE']]],
+
     ['{two}:first:three', 'aQaE:first:three', [['two'], ['aQaE']]],
     ['first:{two}:three', 'first:aQaE:three', [['two'], ['aQaE']]],
     ['first:three:{two}', 'first:three:aQaE', [['two'], ['aQaE']]],
@@ -50,14 +53,14 @@ test('error output if the command is not found', function (string $pattern, stri
         ->callbackCommandsHandler($update);
 })->throws(InvalidArgumentException::class)->with('error_patterns');
 
-test('successful command processing', function (string $pattern, string $data) {
+test('successful command processing', function (string $pattern, string $data, array $result) {
     $command = makeCommand()->setName($pattern);
     $update = buildCallbackMessageUpdate($data);
 
     $this->callbackCommandManager->addCallbackCommand($command)
         ->callbackCommandsHandler($update);
 
-    expect(1)->toBeOne();
+    expect($command->parseArguments($data))->toBe($result);
 })->with('patterns');
 
 
